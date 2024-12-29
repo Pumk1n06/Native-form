@@ -3,11 +3,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+
 const formRoutes = require('./routes/formRoutes');
 
 // Initialize app
 const app = express();
+const cors = require('cors');
 
 // Middleware
 app.use(cors());
@@ -60,7 +61,7 @@ app.post('/api/forms/create', async (req, res) => {
     try {
       const newForm = new Form({
         title,
-        headerImage,
+        headerImage: req.file ? `/uploads/${req.file.filename}`:null,
         questions,
       });
   
